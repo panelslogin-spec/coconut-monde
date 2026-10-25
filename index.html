@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COCONUT MONDE — Discover Africa</title>
+<style>
+:root {
+  --site-primary: #244D3B;
+  --site-on-primary: #FFFFFF;
+  --site-secondary: #C66D45;
+  --site-on-secondary: #FFFFFF;
+  --site-background: #F7F0E4;
+  --site-on-background: #24342A;
+  --site-font-body: 'Trebuchet MS', Arial, sans-serif;
+  --site-font-heading: Georgia, 'Times New Roman', serif;
+  --site-heading-scale: 1;
+  --site-spacing-scale: 1;
+  --site-radius-scale: 1;
+  --site-decoration-opacity: 1;
+  color-scheme: light dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: var(--site-font-body); background: light-dark(#F7F0E4,#18231D); color: light-dark(#24342A,#E9E6DC); }
+#app { min-height: 100vh; background-color: var(--site-background); color: var(--site-on-background); border-radius: 0; overflow: hidden; }
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; }
+button, .button { border: 0; border-radius: calc(999px * var(--site-radius-scale)); padding: calc(14px * var(--site-spacing-scale)) calc(22px * var(--site-spacing-scale)); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: transform .2s, opacity .2s; font-weight: 700; }
+button:hover, .button:hover { transform: translateY(-2px); }
+.primary { background: var(--site-primary); color: var(--site-on-primary); }
+.secondary { background: var(--site-secondary); color: var(--site-on-secondary); }
+.outline { border: 1px solid currentColor; background: transparent; color: inherit; }
+.topline { background: var(--site-primary); color: #F8F0E4; text-align: center; font-size: 12px; letter-spacing: .12em; padding: 10px 16px; }
+header { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--site-background) 94%, transparent); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(36,77,59,.12); }
+.nav { max-width: 1240px; margin: auto; padding: 17px 5%; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.brand { display: flex; align-items: center; gap: 11px; min-width: max-content; }
+.brand-mark { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: var(--site-primary); color: #F7F0E4; font-size: 22px; }
+.brand-name { font-family: var(--site-font-heading); font-weight: bold; letter-spacing: .08em; font-size: 20px; }
+.brand-sub { display: block; font-size: 9px; letter-spacing: .19em; text-transform: uppercase; margin-top: 3px; opacity: .7; }
+.navlinks { display: flex; gap: 25px; align-items: center; font-size: 13px; font-weight: 700; }
+.navlinks a:hover { color: var(--site-secondary); }
+.menu-toggle { display: none; background: transparent; color: inherit; padding: 8px; font-size: 24px; }
+.hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 610px; background: var(--site-primary); color: #F7F0E4; }
+.hero-copy { padding: clamp(48px,7vw,100px) 8% clamp(55px,7vw,95px) max(8%, calc((100vw - 1240px)/2)); display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
+.eyebrow { text-transform: uppercase; letter-spacing: .22em; font-size: 11px; font-weight: 700; color: #E9B88E; margin-bottom: 22px; }
+h1,h2,h3 { font-family: var(--site-font-heading); font-weight: 500; line-height: 1.08; margin: 0; }
+h1 { font-size: clamp(44px,5.4vw,76px); letter-spacing: -.035em; max-width: 620px; }
+h1 em { color: #E7B98C; font-weight: 400; }
+.hero-copy p { max-width: 470px; line-height: 1.8; color: #E1E4D9; margin: 25px 0 30px; font-size: 15px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-art { position: relative; min-height: 440px; overflow: hidden; background: linear-gradient(155deg,#E6B47D 0%,#C66D45 47%,#8B4D36 100%); }
+.hero-art:before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse at 72% 18%,rgba(255,230,168,.8) 0 8%,transparent 8.5%), linear-gradient(180deg,transparent 38%,rgba(29,55,39,.3)); }
+.sun { position:absolute; width:220px;height:220px;border-radius:50%;background:rgba(255,223,158,.65);top:12%;right:18%; }
+.hill { position:absolute; width:130%; height:62%; bottom:-16%; left:-15%; border-radius:50% 50% 0 0; background:#6C4935; transform:rotate(-8deg); }
+.hill.two { bottom:-28%; left:12%; background:#244D3B; transform:rotate(9deg); }
+.tree { position:absolute; bottom:25%; left:23%; width:15px; height:190px; background:#3A3024; transform:rotate(3deg); border-radius:8px; }
+.tree:before { content:''; position:absolute; width:150px;height:95px;left:-68px;top:-22px;background:#244D3B;clip-path:polygon(50% 0,60% 27%,100% 17%,72% 44%,94% 55%,61% 57%,77% 88%,50% 69%,25% 90%,37% 60%,0 57%,28% 42%,4% 22%,40% 29%); }
+.tree.t2 { left:74%; bottom:19%; transform:scale(.7) rotate(-6deg); }
+.art-caption { position:absolute; bottom:28px; right:28px; color:#FFF6E8; font-family:var(--site-font-heading); font-style:italic; font-size:22px; z-index:2; }
+.trustbar { display:grid; grid-template-columns:repeat(3,1fr); max-width:1120px; margin:-1px auto 0; background:#F0E4D1; color:#244D3B; position:relative; z-index:2; }
+.trust-item { text-align:center; padding:23px 12px; border-right:1px solid rgba(36,77,59,.15); }
+.trust-item:last-child { border:0; }
+.trust-item strong { display:block; font-family:var(--site-font-heading); font-size:19px; font-weight:500; }
+.trust-item span { display:block; margin-top:6px; font-size:10px; text-transform:uppercase; letter-spacing:.16em; opacity:.72; }
+.section { padding: 94px 5%; max-width: 1280px; margin:auto; }
+.section-head { text-align:center; max-width:650px; margin:0 auto 45px; }
+.section-head .eyebrow { color:var(--site-secondary); margin-bottom:14px; }
+h2 { font-size:clamp(34px,4vw,52px); }
+.section-head p { line-height:1.8; opacity:.78; font-size:14px; }
+.cards { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.card { background:light-dark(#FFF9F0,#233229); border:1px solid rgba(36,77,59,.12); border-radius:calc(16px * var(--site-radius-scale)); overflow:hidden; display:flex; flex-direction:column; }
+.card-art { min-height:230px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+.card-art .symbol { font-size:78px; filter:drop-shadow(0 12px 12px rgba(0,0,0,.12)); position:relative; z-index:2; }
+.card-art:after { content:''; position:absolute; width:210px;height:210px;border-radius:50%;border:1px solid rgba(255,255,255,.5); }
+.art-shop { background:linear-gradient(135deg,#E5C9A0,#A3A77C); }
+.art-tour { background:linear-gradient(135deg,#E9B77F,#B95E3E); }
+.art-food { background:linear-gradient(135deg,#B9C6A2,#D68A56); }
+.card-content { padding:27px; display:flex; flex-direction:column; align-items:flex-start; flex:1; }
+.card-content .eyebrow { font-size:9px; color:var(--site-secondary); margin-bottom:12px; }
+h3 { font-size:28px; }
+.card-content p { line-height:1.75; font-size:13px; opacity:.78; margin:13px 0 22px; }
+.text-link { font-size:12px; font-weight:800; letter-spacing:.04em; margin-top:auto; color:var(--site-secondary); }
+.story { background:#EDE1CE; color:#244D3B; }
+.story-inner { max-width:1160px; margin:auto; display:grid; grid-template-columns:.9fr 1.1fr; align-items:center; gap:8%; padding:90px 5%; }
+.story-visual { min-height:400px; border-radius:48% 48% 14px 14px; background:linear-gradient(145deg,#D9A16D,#8D553A 55%,#244D3B); position:relative; overflow:hidden; display:grid; place-items:center; }
+.story-visual:before { content:'✺'; color:rgba(255,240,210,.7); font-size:220px; position:absolute; }
+.story-visual span { position:relative; font-family:var(--site-font-heading); font-size:34px; font-style:italic; color:#FFF3DF; text-align:center; max-width:230px; }
+.story-copy .eyebrow { color:var(--site-secondary); }
+.story-copy p { line-height:1.9; font-size:14px; opacity:.85; }
+.values { display:flex; gap:20px; margin:25px 0 30px; flex-wrap:wrap; }
+.values span { font-size:12px; font-weight:700; }
+.values span:before { content:'✦'; color:var(--site-secondary); margin-right:8px; }
+.experience { background:#244D3B; color:#F7F0E4; }
+.experience-inner { max-width:1150px; margin:auto; padding:86px 5%; display:grid; grid-template-columns:1fr .9fr; gap:8%; align-items:center; }
+.experience h2 { max-width:520px; }
+.experience p { color:#DCE4D9; line-height:1.8; font-size:14px; }
+.experience-box { border:1px solid rgba(255,255,255,.25); border-radius:14px; padding:28px; }
+.experience-box label { display:block; font-size:11px; letter-spacing:.1em; text-transform:uppercase; margin:14px 0 7px; }
+.experience-box input,.experience-box select,.experience-box textarea { width:100%; padding:12px 13px; border:1px solid rgba(255,255,255,.25); border-radius:8px; background:rgba(255,255,255,.08); color:#FFF7EA; outline:none; }
+.experience-box select option { color:#24342A; }
+.experience-box textarea { min-height:80px; resize:vertical; }
+.experience-box button { margin-top:18px; width:100%; }
+footer { background:#172F24; color:#F7F0E4; padding:48px 5% 24px; }
+.footer-inner { max-width:1160px; margin:auto; display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:35px; }
+footer p { color:#CBD4C8; font-size:12px; line-height:1.8; max-width:340px; }
+footer h4 { font-size:11px; text-transform:uppercase; letter-spacing:.16em; color:#E7B98C; margin:6px 0 18px; }
+footer .footlinks { display:grid; gap:11px; font-size:12px; color:#E4E9E0; }
+.copyright { max-width:1160px; margin:35px auto 0; padding-top:18px; border-top:1px solid rgba(255,255,255,.15); font-size:10px; color:#B7C5B8; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+.toast { display:none; margin-top:12px; font-size:12px; color:#E7B98C; line-height:1.6; }
+.experience-tabs { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin:0 0 30px; }
+.experience-tabs button { border:1px solid rgba(36,77,59,.2); background:transparent; color:inherit; }
+.experience-tabs button.active { background:var(--site-primary); color:var(--site-on-primary); }
+.view { display:none; }
+.view.active { display:block; }
+.catalog-tools { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:14px; margin:0 0 24px; }
+.catalog-tools input,.catalog-tools select,.booking-form input,.booking-form select,.booking-form textarea { padding:12px 14px; border:1px solid rgba(36,77,59,.2); border-radius:8px; background:light-dark(#FFF9F0,#233229); color:inherit; min-width:0; }
+.catalog-tools input { flex:1; min-width:200px; }
+.product-grid,.tour-grid,.menu-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.product-card,.tour-card,.menu-card { border:1px solid rgba(36,77,59,.15); border-radius:14px; overflow:hidden; background:light-dark(#FFF9F0,#233229); display:flex; flex-direction:column; }
+.product-visual,.tour-visual,.menu-visual { min-height:155px; display:grid; place-items:center; font-size:54px; background:linear-gradient(135deg,#E5C9A0,#A3A77C); }
+.tour-visual { background:linear-gradient(135deg,#E9B77F,#B95E3E); }
+.menu-visual { background:linear-gradient(135deg,#B9C6A2,#D68A56); }
+.item-body { padding:20px; display:flex; flex-direction:column; flex:1; gap:10px; }
+.item-body p { font-size:13px; line-height:1.65; opacity:.78; margin:0; }
+.price { font-size:20px; font-weight:800; color:var(--site-secondary); margin-top:auto; }
+.item-body button { margin-top:8px; width:100%; }
+.basket { margin-top:32px; padding:26px; border-radius:14px; background:light-dark(#EDE1CE,#1C2B22); color:light-dark(#24342A,#E9E6DC); }
+.basket-row { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid rgba(120,120,120,.2); font-size:13px; }
+.basket-row button { padding:6px 10px; }
+.basket-total { display:flex; justify-content:space-between; font-size:20px; font-weight:800; margin:20px 0; }
+.basket-actions { display:flex; flex-wrap:wrap; gap:10px; }
+.booking-form { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin-top:24px; }
+.booking-form label { display:grid; gap:7px; font-size:12px; font-weight:700; }
+.booking-form .wide { grid-column:1/-1; }
+.notice { font-size:12px; line-height:1.6; opacity:.75; margin-top:14px; }
+.invoice { margin-top:18px; padding:22px; border:1px dashed var(--site-secondary); border-radius:12px; display:none; }
+.invoice h3 { margin-bottom:12px; }
+.invoice table { border-collapse:collapse; width:100%; font-size:12px; margin:15px 0; }
+.invoice th,.invoice td { text-align:left; padding:9px 6px; border-bottom:1px solid rgba(120,120,120,.25); }
+.invoice .right { text-align:right; }
+/* High-resolution photography and Coconut Monde visual identity */
+.brand-mark { background:linear-gradient(145deg,#0d3b28,#245d3d); color:#D9AC45; border:2px solid #D9AC45; font-size:25px; box-shadow:0 4px 12px rgba(20,45,28,.18); }
+.brand-name { letter-spacing:.075em; }
+.hero-art { background:linear-gradient(90deg,rgba(15,49,33,.16),rgba(15,49,33,.04)),url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=2200&q=90') center 48%/cover no-repeat; }
+.hero-art:before { background:linear-gradient(180deg,rgba(15,40,26,.04),rgba(15,40,26,.5)); }
+.hero-art .sun,.hero-art .tree,.hero-art .hill { display:none; }
+.hero-art .art-caption { background:rgba(17,48,32,.72); padding:14px 20px; border:1px solid rgba(231,185,140,.65); border-radius:4px; }
+.art-shop { background:linear-gradient(0deg,rgba(25,55,34,.12),rgba(25,55,34,.12)),url('https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=1200&q=90') center/cover; }
+.art-tour { background:linear-gradient(0deg,rgba(25,55,34,.12),rgba(25,55,34,.12)),url('https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=90') center/cover; }
+.art-food { background:linear-gradient(0deg,rgba(25,55,34,.12),rgba(25,55,34,.12)),url('https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=90') center/cover; }
+.card-art .symbol { color:#fff8e9; text-shadow:0 3px 16px rgba(0,0,0,.55); }
+.story-visual { background:linear-gradient(0deg,rgba(17,48,32,.45),rgba(17,48,32,.08)),url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1600&q=90') center/cover; }
+.story-visual:before { content:none; }
+.product-visual { background:linear-gradient(0deg,rgba(20,48,30,.16),rgba(20,48,30,.16)),url('https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=900&q=85') center/cover; color:#fff; text-shadow:0 2px 8px #333; }
+.tour-visual { background:linear-gradient(0deg,rgba(20,48,30,.22),rgba(20,48,30,.22)),url('https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=900&q=85') center/cover; color:#fff; text-shadow:0 2px 8px #333; }
+.menu-visual { background:linear-gradient(0deg,rgba(20,48,30,.18),rgba(20,48,30,.18)),url('https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=85') center/cover; color:#fff; text-shadow:0 2px 8px #333; }
+@media (min-width:1200px) { .hero { min-height:680px; } .hero-art { min-height:560px; } .card-art { min-height:270px; } }
+@media(max-width:800px) { .product-grid,.tour-grid,.menu-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:520px) { .product-grid,.tour-grid,.menu-grid { grid-template-columns:1fr; } .booking-form { grid-template-columns:1fr; } .booking-form .wide { grid-column:auto; } }
+@media(max-width:900px) { .navlinks { gap:13px; font-size:11px; } .hero-copy { padding-left:6%; } .cards { gap:14px; } .card-content { padding:21px; } }
+@media(max-width:700px) { .nav { padding:13px 5%; } .menu-toggle { display:block; } .navlinks { display:none; position:absolute; top:100%; left:0; right:0; background:var(--site-background); color:var(--site-on-background); padding:22px 6%; flex-direction:column; align-items:flex-start; border-bottom:1px solid rgba(36,77,59,.15); } .navlinks.open { display:flex; } .hero { grid-template-columns:1fr; } .hero-copy { padding:58px 7% 52px; } .hero-art { min-height:340px; } .trustbar { grid-template-columns:1fr; margin:0; } .trust-item { border-right:0; border-bottom:1px solid rgba(36,77,59,.15); padding:16px; } .section { padding:70px 6%; } .cards { grid-template-columns:1fr; } .card-art { min-height:210px; } .story-inner,.experience-inner { grid-template-columns:1fr; padding:65px 6%; gap:35px; } .story-visual { min-height:300px; } .footer-inner { grid-template-columns:1fr 1fr; } .footer-inner > div:first-child { grid-column:1/-1; } }
+@media(prefers-color-scheme:dark) { .card { border-color:rgba(255,255,255,.12); } }
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="topline">A CELEBRATION OF AFRICAN CULTURE · TRADITION · FLAVOUR</div>
+  <header>
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="Coconut Monde home"><span class="brand-mark" aria-hidden="true">🥥</span><span><span class="brand-name">COCONUT MONDE</span><span class="brand-sub">The soul of Africa</span></span></a>
+      <button class="menu-toggle" aria-label="Toggle menu" onclick="document.querySelector('.navlinks').classList.toggle('open')">☰</button>
+      <div class="navlinks"><a href="#home">Home</a><a href="#shop">Spiritual Shop</a><a href="#tours">African Tours</a><a href="#restaurant">Restaurant</a><a href="#story">Our Story</a><a class="button primary" href="#contact">Plan Your Visit ↗</a></div>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy"><div class="eyebrow">Rooted in heritage · Made for discovery</div><h1>Discover Africa.<br><em>Feel its soul.</em></h1><p>Step into a world of meaningful traditions, unforgettable journeys and vibrant African flavours. Welcome to Coconut Monde — where every experience tells a story.</p><div class="hero-actions"><a class="button secondary" href="#tours">Explore experiences ↗</a><a class="button outline" href="#story">Discover our world</a></div></div>
+      <div class="hero-art" role="img" aria-label="High-resolution African landscape photography"><div class="sun"></div><div class="tree"></div><div class="tree t2"></div><div class="hill"></div><div class="hill two"></div><div class="art-caption">Africa, deeply felt.</div></div>
+    </section>
+    <div class="trustbar"><div class="trust-item"><strong>Honour tradition</strong><span>Culture with respect</span></div><div class="trust-item"><strong>Explore with wonder</strong><span>Journeys with meaning</span></div><div class="trust-item"><strong>Gather around flavour</strong><span>A taste of Africa</span></div></div>
+    <section class="section" id="experiences"><div class="section-head"><div class="eyebrow">Three ways to connect</div><h2>One home for the African experience</h2><p>From traditional spiritual-care products to remarkable destinations and memorable meals, discover the many expressions of African heritage.</p></div>
+      <div class="experience-tabs" aria-label="Explore Coconut Monde"><button type="button" class="active" data-view-button="overview">All experiences</button><button type="button" data-view-button="shop-view">Spiritual Shop</button><button type="button" data-view-button="tours-view">African Tours</button><button type="button" data-view-button="restaurant-view">African Restaurant</button></div>
+      <div class="view active" id="overview"><div class="cards">
+        <article class="card" id="shop"><div class="card-art art-shop"><span class="symbol">✺</span></div><div class="card-content"><div class="eyebrow">Tradition & wellbeing</div><h3>Spiritual Shop</h3><p>Explore a thoughtful selection of traditional herbs, incense, natural oils, soaps and cultural accessories. Product information is shared with care and respect for diverse traditions.</p><a class="text-link" href="#shop-view" onclick="showView('shop-view')">EXPLORE PRODUCTS ↗</a></div></article>
+        <article class="card" id="tours"><div class="card-art art-tour"><span class="symbol">☀</span></div><div class="card-content"><div class="eyebrow">Heritage & adventure</div><h3>African Tours</h3><p>Experience local culture, heritage sites, nature and wildlife through journeys shaped around your interests. Ask us about private tours and tailor-made itineraries.</p><a class="text-link" href="#tours-view" onclick="showView('tours-view')">PLAN A JOURNEY ↗</a></div></article>
+        <article class="card" id="restaurant"><div class="card-art art-food"><span class="symbol">♨</span></div><div class="card-content"><div class="eyebrow">Food & togetherness</div><h3>African Restaurant</h3><p>Celebrate the richness of African cooking, from comforting classics to regional favourites. Contact us for menu details, catering and group bookings.</p><a class="text-link" href="#restaurant-view" onclick="showView('restaurant-view')">DISCOVER THE MENU ↗</a></div></article>
+      </div></div>
+    </section>
+    <section class="section view" id="shop-view"><div class="section-head"><div class="eyebrow">The spiritual shop</div><h2>Traditional goods, thoughtfully selected</h2><p>Browse the sample catalogue, add items to your basket and generate a printable invoice. Prices are illustrative and can be edited for your real inventory.</p></div><div class="catalog-tools"><input id="productSearch" type="search" placeholder="Search products…" aria-label="Search products"><select id="productCategory" aria-label="Filter products"><option value="all">All categories</option><option value="incense">Incense</option><option value="oils">Oils & soaps</option><option value="herbs">Herbs & accessories</option></select><button class="outline" type="button" onclick="showView('overview')">← All experiences</button></div><div class="product-grid" id="productGrid"></div><div class="basket" id="basket"><h3>Your shopping basket</h3><div id="basketItems"><p>Your basket is empty. Add products above to begin.</p></div><div class="basket-total"><span>Total</span><span id="basketTotal">KES 0</span></div><div class="basket-actions"><button class="primary" type="button" onclick="openCheckout()">Generate invoice & checkout ↗</button><button class="outline" type="button" onclick="clearBasket()">Clear basket</button></div><form class="booking-form" id="checkoutForm" hidden><label>Customer name<input id="customerName" required placeholder="Full name"></label><label>Email or phone<input id="customerContact" required placeholder="Contact details"></label><label class="wide">Delivery address (optional)<input id="customerAddress" placeholder="Address or collection preference"></label><button class="secondary wide" type="submit">Create invoice</button></form><div class="invoice" id="invoice"></div><p class="notice">Demo checkout: this creates a printable invoice only. It does not charge a payment method, reserve stock or arrange delivery.</p></div></section>
+    <section class="section view" id="tours-view"><div class="section-head"><div class="eyebrow">African tours</div><h2>Journeys made around you</h2><p>Choose an example experience, select your dates and request transport and a tailored itinerary. Final prices and availability are confirmed after enquiry.</p></div><div class="tour-grid" id="tourGrid"></div><form class="booking-form" id="tourForm"><label>Your name<input name="name" required placeholder="Full name"></label><label>Email or phone<input name="contact" required placeholder="Contact details"></label><label>Destination<select name="destination"><option>Nairobi & surrounds</option><option>Kenya safari circuit</option><option>Coastal Kenya</option><option>Custom African destination</option></select></label><label>Tour date<input type="date" name="date" required></label><label>Number of travellers<input type="number" name="travellers" min="1" value="2" required></label><label>Transport preference<select name="transport"><option>Private vehicle with driver</option><option>Airport transfers</option><option>Group transport</option><option>Transport advice needed</option></select></label><label class="wide">Tailor-made requests<textarea name="notes" placeholder="Interests, accommodation, pace, accessibility or other requests"></textarea></label><button class="primary wide" type="submit">Prepare tour enquiry ↗</button></form><div class="notice" id="tourMessage" role="status"></div></section>
+    <section class="section view" id="restaurant-view"><div class="section-head"><div class="eyebrow">African restaurant & pantry</div><h2>Flavour, spice and togetherness</h2><p>Explore sample dishes and pantry spices. Menu and spice prices are examples until your restaurant's final offerings are confirmed.</p></div><div class="experience-tabs"><button class="active" data-menu-filter="food" type="button">Restaurant menu</button><button data-menu-filter="spices" type="button">Food spices</button></div><div class="menu-grid" id="menuGrid"></div><form class="booking-form" id="restaurantForm"><label>Your name<input name="name" required placeholder="Full name"></label><label>Email or phone<input name="contact" required placeholder="Contact details"></label><label>Enquiry type<select name="type"><option>Table reservation</option><option>Takeaway order enquiry</option><option>Catering or event</option><option>Spice product enquiry</option></select></label><label>Preferred date<input type="date" name="date"></label><label class="wide">Guests or order details<textarea name="details" placeholder="Party size, dishes, spice quantities or special requests"></textarea></label><button class="primary wide" type="submit">Prepare restaurant enquiry ↗</button></form><div class="notice" id="restaurantMessage" role="status"></div></section>
+    <section class="story" id="story"><div class="story-inner"><div class="story-visual"><span>Many roots.<br>One world.</span></div><div class="story-copy"><div class="eyebrow">The Coconut Monde spirit</div><h2>Celebrate the richness of Africa.</h2><p>Coconut Monde is a meeting place for culture, discovery and connection. We bring together traditional products, African travel and food in one welcoming destination — inviting guests to learn, explore and share.</p><p>Our promise is to approach African heritage with authenticity, respect and warmth, while making every visitor feel welcome.</p><div class="values"><span>Authenticity</span><span>Hospitality</span><span>Respect</span></div><a class="button primary" href="#contact">Let's connect ↗</a></div></div></section>
+    <section class="experience" id="contact"><div class="experience-inner"><div><div class="eyebrow">Your next experience starts here</div><h2>What would you like to discover?</h2><p>Tell us what you're interested in and the Coconut Monde team can follow up with more information. This demonstration form prepares an enquiry; connect it to your business email or booking system before launch.</p><p><strong>COCONUT MONDE</strong><br>Location, phone number and business email to be added.</p></div><form class="experience-box" id="enquiryForm"><h3>Send an enquiry</h3><label for="name">Your name</label><input id="name" name="name" placeholder="Enter your name" required><label for="email">Email address</label><input id="email" name="email" type="email" placeholder="you@example.com" required><label for="interest">I'm interested in</label><select id="interest" name="interest"><option>General enquiry</option><option>Spiritual shop enquiry</option><option>African tour enquiry</option><option>Restaurant and menu enquiry</option><option>Private event or catering</option></select><label for="message">How can we help?</label><textarea id="message" name="message" placeholder="Tell us a little about what you have in mind"></textarea><button class="secondary" type="submit">Prepare my enquiry ↗</button><div class="toast" id="formMessage" role="status"></div></form></div></section>
+  </main>
+  <footer><div class="footer-inner"><div><a class="brand" href="#home"><span class="brand-mark" aria-hidden="true">🥥</span><span><span class="brand-name">COCONUT MONDE</span><span class="brand-sub">The soul of Africa</span></span></a><p>A celebration of African tradition, tourism and cuisine. Discover a culture-rich world of experiences with us.</p></div><div><h4>Explore</h4><div class="footlinks"><a href="#shop">Spiritual Shop</a><a href="#tours">African Tours</a><a href="#restaurant">African Restaurant</a><a href="#story">Our Story</a></div></div><div><h4>Get in touch</h4><div class="footlinks"><a href="#contact">Make an enquiry</a><span>Business location: to be confirmed</span><span>Email and phone: to be added</span></div></div></div><div class="copyright"><span>© <span id="year"></span> Coconut Monde. All rights reserved.</span><span>Culture · Connection · Discovery</span></div></footer>
+</div>
+<script>
+const money = amount => new Intl.NumberFormat('en-KE',{style:'currency',currency:'KES',maximumFractionDigits:0}).format(amount);
+function showView(id) { document.querySelectorAll('.view').forEach(view => view.classList.toggle('active',view.id===id)); document.querySelectorAll('[data-view-button]').forEach(button => button.classList.toggle('active',button.dataset.viewButton===id)); document.getElementById('experiences').scrollIntoView({behavior:'smooth',block:'start'}); }
+document.querySelectorAll('[data-view-button]').forEach(button => button.addEventListener('click',()=>showView(button.dataset.viewButton)));
+document.getElementById('year').textContent = new Date().getFullYear();
+const products = [
+ {id:1,name:'Botanical Incense Bundle',category:'incense',price:650,icon:'♨',description:'Aromatic incense selection for a calm, reflective atmosphere.'},
+ {id:2,name:'Traditional Resin Incense',category:'incense',price:850,icon:'✺',description:'Resin incense for cultural and ceremonial use.'},
+ {id:3,name:'Natural Body Oil',category:'oils',price:900,icon:'❋',description:'A fragrant, skin-care oil. Check ingredients before use.'},
+ {id:4,name:'African Black Soap',category:'oils',price:500,icon:'◈',description:'Traditional-style cleansing soap for everyday care.'},
+ {id:5,name:'Dried Botanical Herbs',category:'herbs',price:450,icon:'❧',description:'Packaged botanical materials with ingredient details.'},
+ {id:6,name:'Woven Ritual Basket',category:'herbs',price:1200,icon:'▤',description:'Handcrafted-inspired basket for storing personal items.'}
+];
+let basket = [];
+function renderProducts(){const term=document.getElementById('productSearch').value.toLowerCase();const category=document.getElementById('productCategory').value;const visible=products.filter(p=>(category==='all'||p.category===category)&&(p.name+' '+p.description).toLowerCase().includes(term));document.getElementById('productGrid').innerHTML=visible.map(p=>`<article class="product-card"><div class="product-visual">${p.icon}</div><div class="item-body"><h3>${p.name}</h3><p>${p.description}</p><div class="price">${money(p.price)}</div><button class="primary" type="button" onclick="addToBasket(${p.id})">Add to basket +</button></div></article>`).join('')||'<p>No products match your search.</p>';}
+function addToBasket(id){const item=basket.find(row=>row.id===id);if(item)item.qty++;else basket.push({id,qty:1});renderBasket();}
+function removeFromBasket(id){basket=basket.filter(row=>row.id!==id);renderBasket();}
+function clearBasket(){basket=[];renderBasket();document.getElementById('invoice').style.display='none';}
+function renderBasket(){const root=document.getElementById('basketItems');if(!basket.length){root.innerHTML='<p>Your basket is empty. Add products above to begin.</p>';document.getElementById('basketTotal').textContent=money(0);return;}root.innerHTML=basket.map(row=>{const p=products.find(item=>item.id===row.id);return `<div class="basket-row"><span>${p.name} × ${row.qty}</span><strong>${money(p.price*row.qty)}</strong><button class="outline" type="button" aria-label="Remove ${p.name}" onclick="removeFromBasket(${p.id})">Remove</button></div>`}).join('');document.getElementById('basketTotal').textContent=money(basket.reduce((sum,row)=>sum+products.find(p=>p.id===row.id).price*row.qty,0));}
+function openCheckout(){if(!basket.length){alert('Please add at least one product to your basket first.');return;}const form=document.getElementById('checkoutForm');form.hidden=false;form.scrollIntoView({behavior:'smooth',block:'center'});}
+document.getElementById('productSearch').addEventListener('input',renderProducts);document.getElementById('productCategory').addEventListener('change',renderProducts);
+document.getElementById('checkoutForm').addEventListener('submit',event=>{event.preventDefault();if(!basket.length)return;const customer=document.getElementById('customerName').value.trim();const contact=document.getElementById('customerContact').value.trim();const address=document.getElementById('customerAddress').value.trim();const total=basket.reduce((sum,row)=>sum+products.find(p=>p.id===row.id).price*row.qty,0);const invoiceNo='CM-'+new Date().toISOString().slice(0,10).replaceAll('-','')+'-'+Math.floor(1000+Math.random()*9000);const lines=basket.map(row=>{const p=products.find(item=>item.id===row.id);return `<tr><td>${p.name}</td><td>${row.qty}</td><td>${money(p.price)}</td><td class="right">${money(p.price*row.qty)}</td></tr>`}).join('');const invoice=document.getElementById('invoice');invoice.innerHTML=`<h3>COCONUT MONDE</h3><p><strong>INVOICE</strong> · ${invoiceNo}<br>Date: ${new Date().toLocaleDateString()}<br>Customer: ${customer}<br>Contact: ${contact}<br>${address?'Delivery details: '+address+'<br>':''}Status: Pending payment</p><table><thead><tr><th>Product</th><th>Qty</th><th>Unit price</th><th class="right">Amount</th></tr></thead><tbody>${lines}</tbody></table><div class="basket-total"><span>Total due</span><span>${money(total)}</span></div><p class="notice">This is a generated pro-forma invoice for the sample catalogue. Payment is not processed and fulfilment is not confirmed.</p><button class="primary" type="button" onclick="window.print()">Print / Save invoice ↗</button>`;invoice.style.display='block';invoice.scrollIntoView({behavior:'smooth',block:'start'});});
+const tours=[{name:'Nairobi Culture Day',price:'From KES 8,500 per group',icon:'🏙',desc:'A flexible city day featuring culture, markets and heritage stops.'},{name:'Wildlife Safari Escape',price:'Quote on request',icon:'🦒',desc:'A nature-focused safari plan with transport and park options tailored to your dates.'},{name:'Coastal Heritage Getaway',price:'Quote on request',icon:'🌴',desc:'Coastal scenery, Swahili heritage and local food experiences.'}];
+document.getElementById('tourGrid').innerHTML=tours.map(t=>`<article class="tour-card"><div class="tour-visual">${t.icon}</div><div class="item-body"><h3>${t.name}</h3><p>${t.desc}</p><div class="price">${t.price}</div><button class="primary" type="button" onclick="document.querySelector('#tourForm [name=notes]').value='Interested in: ${t.name}';document.getElementById('tourForm').scrollIntoView({behavior:'smooth'})">Tailor this tour ↗</button></div></article>`).join('');
+let menuFilter='food';const menuItems=[{type:'food',name:'Jollof Rice & Plantain',price:850,icon:'🍲',desc:'A West African-inspired rice plate with sweet fried plantain.'},{type:'food',name:'Grilled Fish & Sides',price:1400,icon:'🐟',desc:'Seasoned grilled fish served with selected traditional sides.'},{type:'food',name:'Peanut Stew & Rice',price:950,icon:'🥘',desc:'A comforting stew inspired by regional African home cooking.'},{type:'spices',name:'Jollof Spice Blend',price:350,icon:'🌶️',desc:'A balanced aromatic blend for rice and stews.'},{type:'spices',name:'Suya-Style Seasoning',price:400,icon:'🧂',desc:'A warming spice blend; check ingredients for allergens.'},{type:'spices',name:'Berbere-Inspired Blend',price:450,icon:'🫙',desc:'A bold seasoning blend inspired by Ethiopian cuisine.'}];
+function renderMenu(){document.getElementById('menuGrid').innerHTML=menuItems.filter(item=>item.type===menuFilter).map(item=>`<article class="menu-card"><div class="menu-visual">${item.icon}</div><div class="item-body"><h3>${item.name}</h3><p>${item.desc}</p><div class="price">${money(item.price)}</div><button class="outline" type="button" onclick="document.querySelector('#restaurantForm [name=details]').value='Interested in: ${item.name}';document.getElementById('restaurantForm').scrollIntoView({behavior:'smooth'})">Enquire about this ↗</button></div></article>`).join('');}
+document.querySelectorAll('[data-menu-filter]').forEach(button=>button.addEventListener('click',()=>{menuFilter=button.dataset.menuFilter;document.querySelectorAll('[data-menu-filter]').forEach(b=>b.classList.toggle('active',b===button));renderMenu();}));
+document.getElementById('tourForm').addEventListener('submit',event=>{event.preventDefault();const data=Object.fromEntries(new FormData(event.currentTarget).entries());const body=encodeURIComponent('COCONUT MONDE TOUR ENQUIRY\n'+Object.entries(data).map(([key,value])=>key+': '+value).join('\n'));const note=document.getElementById('tourMessage');note.innerHTML='Your tour enquiry is ready. Add your official business email to receive enquiries directly. <a style="font-weight:bold" href="mailto:?subject='+encodeURIComponent('Coconut Monde tour enquiry')+'&body='+body+'">Open email draft ↗</a>';});
+document.getElementById('restaurantForm').addEventListener('submit',event=>{event.preventDefault();const data=Object.fromEntries(new FormData(event.currentTarget).entries());const body=encodeURIComponent('COCONUT MONDE RESTAURANT ENQUIRY\n'+Object.entries(data).map(([key,value])=>key+': '+value).join('\n'));document.getElementById('restaurantMessage').innerHTML='Your enquiry is ready to email. Configure the official recipient address before launch. <a style="font-weight:bold" href="mailto:?subject='+encodeURIComponent('Coconut Monde restaurant enquiry')+'&body='+body+'">Open email draft ↗</a>';});
+document.getElementById('enquiryForm').addEventListener('submit', function(event) { event.preventDefault(); const name = document.getElementById('name').value.trim(); const email = document.getElementById('email').value.trim(); const interest = document.getElementById('interest').value; const message = document.getElementById('message').value.trim(); const subject = encodeURIComponent('Coconut Monde enquiry — ' + interest); const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\nInterest: ' + interest + '\n\nMessage:\n' + message); const note = document.getElementById('formMessage'); note.style.display = 'block'; note.innerHTML = 'Your email draft is ready. Configure the official recipient address before launch. <a style="color:#E7B98C;font-weight:bold" href="mailto:?subject='+subject+'&body='+body+'">Open email draft ↗</a>'; });
+renderProducts();renderBasket();renderMenu();
+</script>
+</body>
+</html>
